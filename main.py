@@ -166,6 +166,33 @@ async def main():
 
 asyncio.run(main())
 
+#
+
+# # Punto 4
+# sql = sqla.text(‘select p.id,p.name, p.image from ptypes as pt join pokemons as p on pt.pokemon_id = p.id group by p.id having COUNT(*) >1 AND p.id > 0;’)
+# query = engine.execute(sql)
+# p41 = pd.DataFrame(query.fetchall())
+# p41.to_csv(“punto4/script1.csv”, index=False)
+# print(“CSV punto 4.1 creado”)
+#
+# sql = sqla.text(‘select pt.name, COUNT() from ptypes as pt group by pt.name order by COUNT() desc limit 1’)
+# query = engine.execute(sql)
+# p42 = pd.DataFrame(query.fetchall())
+# p42.to_csv(“punto4/script2.csv”, index=False)
+# print(“CSV punto 4.2 creado”)
+
+
+sql = sqla.text('select p.id,p.name, p.image from ptypes as pt join pokemons as p on pt.pokemon_id = p.id group by p.id having COUNT(*) >1 AND p.id > 0;')
+query = engine.execute(sql)
+p41 = pd.DataFrame(query.fetchall())
+p41.to_csv("punto4/script1.csv", index=False)
+print("CSV punto 4.1 creado")
+
+sql = sqla.text('select pt.name, COUNT(*) from ptypes as pt group by pt.name order by COUNT(*) desc limit 1')
+query = engine.execute(sql)
+p42 = pd.DataFrame(query.fetchall())
+p42.to_csv("punto4/script2.csv", index=False)
+print("CSV punto 4.2 creado")
 
 # 
 
